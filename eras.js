@@ -1,5 +1,5 @@
 const eras = [
-    { code: "c", name: "西暦", start:    1, end: new Date().getFullYear() },
+    { code: "-", name: "西暦", start:    1, end: new Date().getFullYear() },
     { code: "m", name: "明治", start: 1868, end: 1912 },
     { code: "t", name: "大正", start: 1912, end: 1926 },
     { code: "s", name: "昭和", start: 1926, end: 1989 },

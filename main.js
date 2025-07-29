@@ -60,9 +60,8 @@ window.onload = function() {
     yearInput.addEventListener('input', () => {
         // yearが4桁なら「西暦」を選択
         if(yearInput.value.length === 4 && /^[0-9]+$/.test(yearInput.value)) {
-            if (seirekiIdx !== -1) {
-                eraSelect.selectedIndex = seirekiIdx;
-            }
+                eraSelect.selectedIndex = "-";
+                yearInput.select();
         }
         showResult();
 
