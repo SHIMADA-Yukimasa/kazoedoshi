@@ -1,0 +1,10 @@
+.circle {
+display: inline-block; /* インライン要素をブロック要素のように扱う */
+  width: 5vw; /* 円の直径 */
+  height: 5vw; /* 円の直径 */
+  border: 0.3vw solid red; /* 線の太さ、種類、色 透明:ansparent */
+  border-radius: 50%; /* 円形にする */
+  font-size: 4vw; 
+  text-align: center; /* テキストを中央揃え */
+  line-height: 5vW; /* テキストの縦方向の中央揃え */
+}

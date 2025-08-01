@@ -1,9 +1,14 @@
+import { eras } from './eras.js'; // 元号データをインポート
+import { yakuList, hosiList } from './disasters.js';
+
+const yaku = new Map(yakuList);
+console.log(yaku);
 
 // 元号と年から西暦を計算する関数
 function convertToSeireki(eraCode, eraYear) {
     const era = eras.find(e => e.code === eraCode);
     const result = era.start + eraYear - 1;
-    if (!era || !era.start || era.end < result || eraYear < 1) return null;
+    if (!era || !era.start || era.end < result || eraYear < 0) return null;
     return result;
 }
 
@@ -17,6 +22,41 @@ function convertToEto(seireki) {
     const etos = ["申","酉","戌","亥","子","丑","寅","卯","辰","巳","午","未"]
     return etos[seireki % 12];
 }
+
+// 誕生年と数え年から星回りを計算する関数
+function convertToHosi(seireki, kazoedoshi) {
+    const index = (seireki + kazoedoshi) % hosiList.length;
+    return hosiList[index];
+}
+
+// 結果を表示するためのdiv要素を作成
+const createResult = ( seireki, kazoedoshi, eto ) => {
+    const div = document.createElement('div');
+    const h1 = document.createElement('h1');
+    h1.textContent = `${kazoedoshi}歳 ${eto}年`;
+    div.appendChild(h1);
+    const table = document.createElement('table');
+    for (let i = 0; i <= 6; i++) {
+        const tr = document.createElement('tr');
+        const td1 = document.createElement('td');
+        td1.textContent = i === 0 ? '今年' :
+                          i === 1 ? '来年' :
+                          `${i}年後`;
+        const td2 = document.createElement('td');
+        td2.textContent = `${kazoedoshi + i}歳`;
+        const td3 = document.createElement('td');
+        td3.textContent = `${hosiList[(seireki + kazoedoshi + i) % hosiList.length]}`;
+        const td4 = document.createElement('td');
+        td4.textContent = yaku.get(kazoedoshi + i) || '';
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        table.appendChild(tr);
+    }
+    div.appendChild(table);
+    return div;
+};
 
 // イベント処理
 window.onload = function() {
@@ -40,10 +80,14 @@ window.onload = function() {
         const code = eraSelect.value;
         const year = parseInt(yearInput.value,10);
         const seireki = convertToSeireki(code, year);
-        const kazoedosi = convertToKazoedosi(seireki);
+        const kazoedoshi = convertToKazoedosi(seireki);
         const eto = convertToEto(seireki);
         if (seireki) {
-            resultDiv.textContent = `${eraSelect.options[eraSelect.selectedIndex].text} ${year}年は、西暦${seireki}年生まれ。数え年は${kazoedosi}歳、${eto}年です。`;
+           //  resultDiv.textContent = `${eraSelect.options[eraSelect.selectedIndex].text} ${year}年は、西暦${seireki}年生まれ。数え年は${kazoedosi}歳、${eto}年です。`;
+           while (resultDiv.firstChild) {
+            resultDiv.removeChild(resultDiv.firstChild);
+           }
+            resultDiv.appendChild(createResult(seireki,kazoedoshi, eto));
         } else {
             resultDiv.textContent = '正しい元号と年を入力してください。';
         }
