@@ -1,8 +1,7 @@
 import { eras } from './eras.js'; // 元号データをインポート
-import { yakuList, hosiList } from './disasters.js';
+import { yakuList, hosiList, kuseiList } from './disasters.js';
 
 const yaku = new Map(yakuList);
-console.log(yaku);
 
 // 元号と年から西暦を計算する関数
 function convertToSeireki(eraCode, eraYear) {
@@ -33,6 +32,7 @@ function convertToHosi(seireki, kazoedoshi) {
 const createResult = ( seireki, kazoedoshi, eto ) => {
     const div = document.createElement('div');
     const h1 = document.createElement('h1');
+    // h1.textContent = `${kazoedoshi}歳 ${eto}年 ${kuseiList[seireki % 9]}`;
     h1.textContent = `${kazoedoshi}歳 ${eto}年`;
     div.appendChild(h1);
     const table = document.createElement('table');
@@ -83,7 +83,6 @@ window.onload = function() {
         const kazoedoshi = convertToKazoedosi(seireki);
         const eto = convertToEto(seireki);
         if (seireki) {
-           //  resultDiv.textContent = `${eraSelect.options[eraSelect.selectedIndex].text} ${year}年は、西暦${seireki}年生まれ。数え年は${kazoedosi}歳、${eto}年です。`;
            while (resultDiv.firstChild) {
             resultDiv.removeChild(resultDiv.firstChild);
            }

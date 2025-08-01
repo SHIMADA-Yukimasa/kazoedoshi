@@ -29,4 +29,6 @@ export const yakuList =[
     [99, '厄年'],
 ];
 
-export const hosiList = ['○', '◐', '○', '●', '●','◑','○', '●', '◑'];
+export const hosiList = ['●','◑','○', '●', '◑', '○', '◐', '○', '●' ];
+
+export const kuseiList = [ '二黒土星', '一白水星','九紫火星', '八白土星', '七赤金星', '六白金星', '五黄土星', '四緑木星', '三碧木星'];
