@@ -45,7 +45,7 @@ const createResult = ( seireki, kazoedoshi, eto ) => {
         const td2 = document.createElement('td');
         td2.textContent = `${kazoedoshi + i}歳`;
         const td3 = document.createElement('td');
-        td3.textContent = `${hosiList[(seireki + kazoedoshi + i) % hosiList.length]}`;
+        td3.textContent = `${hosiList[(kazoedoshi + i) % 9]}`;
         const td4 = document.createElement('td');
         td4.textContent = yaku.get(kazoedoshi + i) || '';
         tr.appendChild(td1);
